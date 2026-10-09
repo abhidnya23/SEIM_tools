@@ -1,0 +1,906 @@
+/* =========================================================
+   SENTINEL SOC - GLOBAL STYLES
+   ========================================================= */
+
+html,
+body {
+    background-color: #070b14;
+}
+
+.stApp {
+    background:
+        radial-gradient(
+            circle at 80% 0%,
+            rgba(30, 64, 175, 0.08),
+            transparent 30%
+        ),
+        #070b14;
+
+    color: #e5e7eb;
+}
+
+.block-container {
+    max-width: 1500px;
+    padding-top: 1.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-bottom: 3rem;
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+section[data-testid="stSidebar"] {
+    background: #050811 !important;
+    border-right: 1px solid #172033;
+}
+
+section[data-testid="stSidebar"] > div {
+    padding: 25px 18px;
+}
+
+
+/* =========================================================
+   BRAND
+   ========================================================= */
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.brand-shield {
+    font-size: 28px;
+}
+
+.brand-name {
+    color: #f8fafc;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.brand-subtitle {
+    color: #64748b;
+    font-size: 9px;
+    letter-spacing: 2.5px;
+    margin-top: 5px;
+    margin-left: 39px;
+    margin-bottom: 32px;
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.nav-section {
+    color: #475569;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin: 8px 0 10px 8px;
+}
+
+.nav-divider {
+    height: 1px;
+    background: #172033;
+    margin: 18px 0;
+}
+
+
+/* Sidebar buttons */
+
+div.stButton > button {
+    width: 100%;
+    height: 43px;
+
+    text-align: left;
+
+    background: transparent;
+    color: #64748b;
+
+    border: 1px solid transparent;
+    border-radius: 9px;
+
+    padding: 0 14px;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    transition: all 0.2s ease;
+}
+
+div.stButton > button:hover {
+    background: #0d1625;
+    color: #e2e8f0;
+    border: 1px solid #1e293b;
+    transform: translateX(3px);
+}
+
+div.stButton > button[kind="primary"] {
+    background:
+        linear-gradient(
+            90deg,
+            rgba(14, 165, 233, 0.14),
+            rgba(14, 165, 233, 0.04)
+        );
+
+    color: #38bdf8;
+
+    border: 1px solid rgba(56, 189, 248, 0.20);
+
+    box-shadow:
+        inset 3px 0 0 #38bdf8,
+        0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+
+/* =========================================================
+   SIDEBAR STATUS
+   ========================================================= */
+
+.sidebar-status {
+    margin-top: 30px;
+
+    padding: 15px;
+
+    background: #0b111e;
+
+    border: 1px solid #172033;
+
+    border-radius: 10px;
+}
+
+.sidebar-status-title {
+    color: #475569;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    margin-bottom: 8px;
+}
+
+.sidebar-online {
+    color: #4ade80;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.sidebar-info {
+    color: #64748b;
+    font-size: 10px;
+    margin-top: 8px;
+}
+
+
+/* =========================================================
+   TOP BAR
+   ========================================================= */
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding-bottom: 18px;
+    margin-bottom: 25px;
+
+    border-bottom: 1px solid #172033;
+}
+
+.topbar-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.page-heading {
+    color: #f8fafc;
+    font-size: 26px;
+    font-weight: 750;
+    letter-spacing: -0.5px;
+}
+
+.page-description {
+    color: #64748b;
+    font-size: 11px;
+    margin-top: 4px;
+}
+
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.live-pill {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 8px 13px;
+
+    background: rgba(34, 197, 94, 0.08);
+
+    border: 1px solid rgba(34, 197, 94, 0.25);
+
+    border-radius: 20px;
+
+    color: #4ade80;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.live-dot {
+    width: 7px;
+    height: 7px;
+
+    background: #4ade80;
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 10px rgba(74, 222, 128, 0.8);
+}
+
+
+/* =========================================================
+   KPI CARDS
+   ========================================================= */
+
+.kpi {
+    position: relative;
+    overflow: hidden;
+
+    min-height: 145px;
+
+    padding: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #101827,
+            #0b111d
+        );
+
+    border: 1px solid #1a2639;
+
+    border-radius: 13px;
+
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.18);
+}
+
+.kpi::after {
+    content: "";
+
+    position: absolute;
+
+    width: 90px;
+    height: 90px;
+
+    right: -30px;
+    bottom: -40px;
+
+    border-radius: 50%;
+
+    background: rgba(56, 189, 248, 0.05);
+}
+
+.kpi-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.kpi-title {
+    color: #64748b;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 1.2px;
+}
+
+.kpi-icon {
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    background: rgba(56, 189, 248, 0.08);
+
+    font-size: 15px;
+}
+
+.kpi-value {
+    color: #f8fafc;
+
+    font-size: 31px;
+    font-weight: 800;
+
+    margin-top: 13px;
+}
+
+.kpi-bottom {
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    margin-top: 5px;
+}
+
+.kpi-positive {
+    color: #4ade80;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.kpi-warning {
+    color: #fbbf24;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.kpi-danger {
+    color: #f87171;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.kpi-neutral {
+    color: #64748b;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   PANELS
+   ========================================================= */
+
+.panel {
+    background:
+        linear-gradient(
+            145deg,
+            #0d1421,
+            #0a101b
+        );
+
+    border: 1px solid #172236;
+
+    border-radius: 13px;
+
+    padding: 20px;
+
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 15px;
+}
+
+.panel-title {
+    color: #f8fafc;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.panel-subtitle {
+    color: #475569;
+
+    font-size: 9px;
+
+    margin-top: 3px;
+}
+
+.panel-badge {
+    color: #64748b;
+
+    font-size: 9px;
+
+    border: 1px solid #1e293b;
+
+    padding: 5px 8px;
+
+    border-radius: 5px;
+}
+
+
+/* =========================================================
+   THREAT SCORE
+   ========================================================= */
+
+.threat-score {
+    text-align: center;
+
+    padding: 15px;
+}
+
+.score-circle {
+    width: 145px;
+    height: 145px;
+
+    margin: 8px auto 15px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background:
+        radial-gradient(
+            circle,
+            #0b111d 56%,
+            transparent 57%
+        );
+
+    border: 8px solid #26354c;
+
+    box-shadow:
+        0 0 35px rgba(239, 68, 68, 0.08);
+}
+
+.score-number {
+    color: #f8fafc;
+
+    font-size: 31px;
+    font-weight: 800;
+}
+
+.score-label {
+    color: #64748b;
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+}
+
+.threat-high {
+    color: #f87171;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+.threat-medium {
+    color: #fbbf24;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+.threat-low {
+    color: #4ade80;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   ALERT ROWS
+   ========================================================= */
+
+.alert-row {
+    display: flex;
+    align-items: center;
+
+    padding: 13px 0;
+
+    border-bottom: 1px solid #131e2f;
+}
+
+.alert-row:last-child {
+    border-bottom: none;
+}
+
+.severity {
+    width: 67px;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.5px;
+}
+
+.sev-critical {
+    color: #fb7185;
+}
+
+.sev-high {
+    color: #f87171;
+}
+
+.sev-medium {
+    color: #fbbf24;
+}
+
+.sev-low {
+    color: #4ade80;
+}
+
+.alert-details {
+    flex: 1;
+}
+
+.alert-name {
+    color: #dbe4ef;
+
+    font-size: 11px;
+
+    font-weight: 650;
+}
+
+.alert-meta {
+    color: #475569;
+
+    font-size: 9px;
+
+    margin-top: 3px;
+}
+
+.alert-time {
+    color: #475569;
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   IP TABLE
+   ========================================================= */
+
+.ip-row {
+    display: grid;
+
+    grid-template-columns:
+        1.5fr 1fr 0.7fr;
+
+    padding: 12px 0;
+
+    border-bottom: 1px solid #131e2f;
+}
+
+.ip-row:last-child {
+    border-bottom: none;
+}
+
+.ip-address {
+    color: #cbd5e1;
+
+    font-family: monospace;
+
+    font-size: 10px;
+}
+
+.ip-count {
+    color: #f87171;
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+.ip-risk {
+    color: #fbbf24;
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   ATTACK STATISTICS
+   ========================================================= */
+
+.attack-item {
+    margin-bottom: 17px;
+}
+
+.attack-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    color: #94a3b8;
+
+    font-size: 10px;
+
+    margin-bottom: 7px;
+}
+
+.attack-count {
+    color: #f8fafc;
+
+    font-weight: 700;
+}
+
+.progress-bg {
+    width: 100%;
+
+    height: 5px;
+
+    background: #172236;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+
+    border-radius: 10px;
+
+    background: #38bdf8;
+}
+
+
+/* =========================================================
+   LOG SOURCES
+   ========================================================= */
+
+.source {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 11px 0;
+
+    border-bottom: 1px solid #131e2f;
+}
+
+.source:last-child {
+    border-bottom: none;
+}
+
+.source-name {
+    color: #94a3b8;
+
+    font-size: 10px;
+}
+
+.source-status {
+    color: #4ade80;
+
+    font-size: 9px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   FILTER AREA
+   ========================================================= */
+
+.filter-panel {
+    background: #0d1421;
+
+    border: 1px solid #172236;
+
+    border-radius: 12px;
+
+    padding: 18px;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   STREAMLIT INPUTS
+   ========================================================= */
+
+.stTextInput input,
+.stSelectbox div[data-baseweb="select"] > div {
+    background-color: #0b111d !important;
+
+    color: #e2e8f0 !important;
+
+    border-color: #1e293b !important;
+}
+
+.stTextInput label,
+.stSelectbox label,
+.stMultiSelect label,
+.stDateInput label {
+    color: #94a3b8 !important;
+
+    font-size: 11px !important;
+}
+
+
+/* =========================================================
+   DATAFRAME
+   ========================================================= */
+
+[data-testid="stDataFrame"] {
+    border: 1px solid #172236;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   DOWNLOAD BUTTON
+   ========================================================= */
+
+.stDownloadButton > button {
+    background: #0d1625;
+
+    color: #38bdf8;
+
+    border: 1px solid rgba(56, 189, 248, 0.25);
+
+    border-radius: 8px;
+
+    font-weight: 600;
+}
+
+.stDownloadButton > button:hover {
+    background: #132238;
+
+    color: #7dd3fc;
+
+    border-color: #38bdf8;
+}
+
+
+/* =========================================================
+   PRIMARY BUTTON
+   ========================================================= */
+
+.stButton > button[kind="primary"] {
+    background: #0e7490;
+
+    color: white;
+
+    border: 1px solid #0891b2;
+}
+
+.stButton > button[kind="primary"]:hover {
+    background: #155e75;
+
+    border-color: #22d3ee;
+}
+
+
+/* =========================================================
+   METRICS
+   ========================================================= */
+
+[data-testid="stMetric"] {
+    background: #0d1421;
+
+    border: 1px solid #172236;
+
+    padding: 18px;
+
+    border-radius: 12px;
+}
+
+[data-testid="stMetricLabel"] {
+    color: #64748b !important;
+}
+
+[data-testid="stMetricValue"] {
+    color: #f8fafc !important;
+}
+
+
+/* =========================================================
+   INFO / SUCCESS / WARNING
+   ========================================================= */
+
+div[data-testid="stAlert"] {
+    border-radius: 10px;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer {
+    margin-top: 30px;
+
+    padding-top: 15px;
+
+    border-top: 1px solid #172033;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    color: #334155;
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .block-container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .page-heading {
+        font-size: 21px;
+    }
+
+    .kpi-value {
+        font-size: 25px;
+    }
+
+}
+/* Dashboard top spacing fix */
+.block-container { padding-top: 4rem !important; padding-bottom: 3rem !important; }
+.topbar { position: relative !important; z-index: 2 !important; overflow: visible !important; }
+.page-heading { line-height: 1.25 !important; margin-top: 0 !important; }
+section[data-testid="stMain"], section[data-testid="stMain"] > div, .stApp { overflow: visible !important; }
+
+/* =========================================================
+   STORED SECURITY LOGS - DATAFRAME VISIBILITY
+   ========================================================= */
+
+[data-testid="stDataFrame"] {
+    width: 100% !important;
+    min-height: 300px !important;
+    border: 1px solid #26354c !important;
+    border-radius: 10px !important;
+    overflow: auto !important;
+    margin-top: 10px !important;
+}
+
+/* Make dataframe area clearly visible */
+div[data-testid="stDataFrame"] > div {
+    background: #0d1421 !important;
+}
+
+/* Stored logs heading */
+.logs-section-title {
+    color: #f8fafc !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    margin-top: 20px !important;
+    margin-bottom: 10px !important;
+}
