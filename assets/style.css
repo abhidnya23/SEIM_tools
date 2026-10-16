@@ -2,9 +2,15 @@
    SENTINEL SOC - GLOBAL STYLES
    ========================================================= */
 
+/* ---------- GLOBAL RESET ---------- */
+
 html,
 body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
     background-color: #070b14;
+    overflow-x: hidden;
 }
 
 .stApp {
@@ -17,14 +23,42 @@ body {
         #070b14;
 
     color: #e5e7eb;
+    min-height: 100vh;
+}
+
+/* Hide Streamlit's automatic multipage navigation */
+[data-testid="stSidebarNav"] {
+    display: none !important;
+}
+
+/* ---------- MAIN CONTENT ---------- */
+
+/*
+   Keep enough top padding for Streamlit's toolbar.
+   Do not set fixed heights on the main content.
+*/
+
+[data-testid="stAppViewContainer"] {
+    min-height: 100vh;
+}
+
+section[data-testid="stMain"] {
+    min-width: 0;
 }
 
 .block-container {
+    width: 100%;
     max-width: 1500px;
-    padding-top: 1.5rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    padding-bottom: 3rem;
+
+    padding-top: 3rem !important;
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+    padding-bottom: 4rem !important;
+}
+
+/* Ensure page content is not clipped by custom containers */
+.main .block-container {
+    overflow: visible;
 }
 
 
@@ -38,13 +72,15 @@ section[data-testid="stSidebar"] {
 }
 
 section[data-testid="stSidebar"] > div {
-    padding: 25px 18px;
+    padding: 24px 18px !important;
 }
 
+/* Allow the sidebar to scroll independently if necessary */
+section[data-testid="stSidebar"] [data-testid="stSidebarContent"] {
+    overflow-y: auto;
+}
 
-/* =========================================================
-   BRAND
-   ========================================================= */
+/* Sidebar branding */
 
 .brand {
     display: flex;
@@ -54,6 +90,7 @@ section[data-testid="stSidebar"] > div {
 
 .brand-shield {
     font-size: 28px;
+    line-height: 1;
 }
 
 .brand-name {
@@ -67,15 +104,10 @@ section[data-testid="stSidebar"] > div {
     color: #64748b;
     font-size: 9px;
     letter-spacing: 2.5px;
-    margin-top: 5px;
-    margin-left: 39px;
-    margin-bottom: 32px;
+    margin: 5px 0 32px 39px;
 }
 
-
-/* =========================================================
-   NAVIGATION
-   ========================================================= */
+/* Sidebar navigation labels */
 
 .nav-section {
     color: #475569;
@@ -92,11 +124,13 @@ section[data-testid="stSidebar"] > div {
 }
 
 
-/* Sidebar buttons */
+/* =========================================================
+   SIDEBAR NAVIGATION BUTTONS
+   ========================================================= */
 
-div.stButton > button {
+section[data-testid="stSidebar"] div.stButton > button {
     width: 100%;
-    height: 43px;
+    min-height: 43px;
 
     text-align: left;
 
@@ -106,22 +140,25 @@ div.stButton > button {
     border: 1px solid transparent;
     border-radius: 9px;
 
-    padding: 0 14px;
+    padding: 8px 14px;
 
     font-size: 12px;
     font-weight: 600;
 
-    transition: all 0.2s ease;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
 }
 
-div.stButton > button:hover {
+section[data-testid="stSidebar"] div.stButton > button:hover {
     background: #0d1625;
     color: #e2e8f0;
-    border: 1px solid #1e293b;
-    transform: translateX(3px);
+
+    border-color: #1e293b;
 }
 
-div.stButton > button[kind="primary"] {
+section[data-testid="stSidebar"] div.stButton > button[kind="primary"] {
     background:
         linear-gradient(
             90deg,
@@ -131,11 +168,9 @@ div.stButton > button[kind="primary"] {
 
     color: #38bdf8;
 
-    border: 1px solid rgba(56, 189, 248, 0.20);
+    border-color: rgba(56, 189, 248, 0.20);
 
-    box-shadow:
-        inset 3px 0 0 #38bdf8,
-        0 4px 15px rgba(0, 0, 0, 0.15);
+    box-shadow: inset 3px 0 0 #38bdf8;
 }
 
 
@@ -145,13 +180,11 @@ div.stButton > button[kind="primary"] {
 
 .sidebar-status {
     margin-top: 30px;
-
     padding: 15px;
 
     background: #0b111e;
 
     border: 1px solid #172033;
-
     border-radius: 10px;
 }
 
@@ -183,9 +216,12 @@ div.stButton > button[kind="primary"] {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 16px;
 
-    padding-bottom: 18px;
-    margin-bottom: 25px;
+    width: 100%;
+
+    padding: 6px 0 18px;
+    margin: 0 0 25px;
 
     border-bottom: 1px solid #172033;
 }
@@ -193,6 +229,7 @@ div.stButton > button[kind="primary"] {
 .topbar-left {
     display: flex;
     flex-direction: column;
+    min-width: 0;
 }
 
 .page-heading {
@@ -200,11 +237,14 @@ div.stButton > button[kind="primary"] {
     font-size: 26px;
     font-weight: 750;
     letter-spacing: -0.5px;
+    line-height: 1.4;
+    margin: 0;
 }
 
 .page-description {
     color: #64748b;
     font-size: 11px;
+    line-height: 1.6;
     margin-top: 4px;
 }
 
@@ -212,6 +252,7 @@ div.stButton > button[kind="primary"] {
     display: flex;
     align-items: center;
     gap: 10px;
+    flex-shrink: 0;
 }
 
 .live-pill {
@@ -224,13 +265,14 @@ div.stButton > button[kind="primary"] {
     background: rgba(34, 197, 94, 0.08);
 
     border: 1px solid rgba(34, 197, 94, 0.25);
-
     border-radius: 20px;
 
     color: #4ade80;
 
     font-size: 10px;
     font-weight: 700;
+
+    white-space: nowrap;
 }
 
 .live-dot {
@@ -238,11 +280,9 @@ div.stButton > button[kind="primary"] {
     height: 7px;
 
     background: #4ade80;
-
     border-radius: 50%;
 
-    box-shadow:
-        0 0 10px rgba(74, 222, 128, 0.8);
+    box-shadow: 0 0 10px rgba(74, 222, 128, 0.8);
 }
 
 
@@ -255,22 +295,16 @@ div.stButton > button[kind="primary"] {
     overflow: hidden;
 
     min-height: 145px;
-
     padding: 20px;
 
-    background:
-        linear-gradient(
-            145deg,
-            #101827,
-            #0b111d
-        );
+    background: linear-gradient(145deg, #101827, #0b111d);
 
     border: 1px solid #1a2639;
-
     border-radius: 13px;
 
-    box-shadow:
-        0 8px 30px rgba(0, 0, 0, 0.18);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
+
+    box-sizing: border-box;
 }
 
 .kpi::after {
@@ -287,20 +321,21 @@ div.stButton > button[kind="primary"] {
     border-radius: 50%;
 
     background: rgba(56, 189, 248, 0.05);
+
+    pointer-events: none;
 }
 
 .kpi-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 10px;
 }
 
 .kpi-title {
     color: #64748b;
-
     font-size: 10px;
     font-weight: 700;
-
     letter-spacing: 1.2px;
 }
 
@@ -321,46 +356,39 @@ div.stButton > button[kind="primary"] {
 
 .kpi-value {
     color: #f8fafc;
-
     font-size: 31px;
     font-weight: 800;
-
     margin-top: 13px;
 }
 
 .kpi-bottom {
     display: flex;
     align-items: center;
-
+    flex-wrap: wrap;
     gap: 7px;
-
     margin-top: 5px;
 }
 
 .kpi-positive {
     color: #4ade80;
-
     font-size: 10px;
     font-weight: 700;
 }
 
 .kpi-warning {
     color: #fbbf24;
-
     font-size: 10px;
     font-weight: 700;
 }
 
 .kpi-danger {
     color: #f87171;
-
     font-size: 10px;
     font-weight: 700;
 }
 
 .kpi-neutral {
     color: #64748b;
-
     font-size: 10px;
 }
 
@@ -370,53 +398,46 @@ div.stButton > button[kind="primary"] {
    ========================================================= */
 
 .panel {
-    background:
-        linear-gradient(
-            145deg,
-            #0d1421,
-            #0a101b
-        );
+    background: linear-gradient(145deg, #0d1421, #0a101b);
 
     border: 1px solid #172236;
-
     border-radius: 13px;
 
     padding: 20px;
 
-    box-shadow:
-        0 8px 30px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 .panel-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
 
     margin-bottom: 15px;
 }
 
 .panel-title {
     color: #f8fafc;
-
     font-size: 14px;
     font-weight: 700;
 }
 
 .panel-subtitle {
-    color: #475569;
-
+    color: #64748b;
     font-size: 9px;
-
     margin-top: 3px;
 }
 
 .panel-badge {
     color: #64748b;
-
     font-size: 9px;
 
     border: 1px solid #1e293b;
-
     padding: 5px 8px;
 
     border-radius: 5px;
@@ -429,7 +450,6 @@ div.stButton > button[kind="primary"] {
 
 .threat-score {
     text-align: center;
-
     padding: 15px;
 }
 
@@ -442,68 +462,49 @@ div.stButton > button[kind="primary"] {
     border-radius: 50%;
 
     display: flex;
-
     flex-direction: column;
-
     justify-content: center;
-
     align-items: center;
 
-    background:
-        radial-gradient(
-            circle,
-            #0b111d 56%,
-            transparent 57%
-        );
+    background: radial-gradient(circle, #0b111d 56%, transparent 57%);
 
     border: 8px solid #26354c;
 
-    box-shadow:
-        0 0 35px rgba(239, 68, 68, 0.08);
+    box-shadow: 0 0 35px rgba(239, 68, 68, 0.08);
+
+    box-sizing: border-box;
 }
 
 .score-number {
     color: #f8fafc;
-
     font-size: 31px;
     font-weight: 800;
 }
 
 .score-label {
     color: #64748b;
-
     font-size: 9px;
-
     letter-spacing: 1px;
 }
 
 .threat-high {
     color: #f87171;
-
     font-size: 11px;
-
     font-weight: 700;
-
     letter-spacing: 1px;
 }
 
 .threat-medium {
     color: #fbbf24;
-
     font-size: 11px;
-
     font-weight: 700;
-
     letter-spacing: 1px;
 }
 
 .threat-low {
     color: #4ade80;
-
     font-size: 11px;
-
     font-weight: 700;
-
     letter-spacing: 1px;
 }
 
@@ -515,6 +516,7 @@ div.stButton > button[kind="primary"] {
 .alert-row {
     display: flex;
     align-items: center;
+    gap: 8px;
 
     padding: 13px 0;
 
@@ -527,11 +529,10 @@ div.stButton > button[kind="primary"] {
 
 .severity {
     width: 67px;
+    flex-shrink: 0;
 
     font-size: 9px;
-
     font-weight: 800;
-
     letter-spacing: 0.5px;
 }
 
@@ -553,27 +554,24 @@ div.stButton > button[kind="primary"] {
 
 .alert-details {
     flex: 1;
+    min-width: 0;
 }
 
 .alert-name {
     color: #dbe4ef;
-
     font-size: 11px;
-
     font-weight: 650;
 }
 
 .alert-meta {
-    color: #475569;
-
+    color: #64748b;
     font-size: 9px;
-
     margin-top: 3px;
+    overflow-wrap: anywhere;
 }
 
 .alert-time {
     color: #475569;
-
     font-size: 9px;
 }
 
@@ -584,9 +582,8 @@ div.stButton > button[kind="primary"] {
 
 .ip-row {
     display: grid;
-
-    grid-template-columns:
-        1.5fr 1fr 0.7fr;
+    grid-template-columns: 1.5fr 1fr 0.7fr;
+    gap: 10px;
 
     padding: 12px 0;
 
@@ -599,23 +596,19 @@ div.stButton > button[kind="primary"] {
 
 .ip-address {
     color: #cbd5e1;
-
     font-family: monospace;
-
     font-size: 10px;
+    overflow-wrap: anywhere;
 }
 
 .ip-count {
     color: #f87171;
-
     font-size: 10px;
-
     font-weight: 700;
 }
 
 .ip-risk {
     color: #fbbf24;
-
     font-size: 9px;
 }
 
@@ -630,11 +623,10 @@ div.stButton > button[kind="primary"] {
 
 .attack-header {
     display: flex;
-
     justify-content: space-between;
+    gap: 10px;
 
     color: #94a3b8;
-
     font-size: 10px;
 
     margin-bottom: 7px;
@@ -642,27 +634,22 @@ div.stButton > button[kind="primary"] {
 
 .attack-count {
     color: #f8fafc;
-
     font-weight: 700;
 }
 
 .progress-bg {
     width: 100%;
-
     height: 5px;
 
     background: #172236;
 
     border-radius: 10px;
-
     overflow: hidden;
 }
 
 .progress-fill {
     height: 100%;
-
     border-radius: 10px;
-
     background: #38bdf8;
 }
 
@@ -673,10 +660,9 @@ div.stButton > button[kind="primary"] {
 
 .source {
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
+    gap: 10px;
 
     padding: 11px 0;
 
@@ -689,15 +675,12 @@ div.stButton > button[kind="primary"] {
 
 .source-name {
     color: #94a3b8;
-
     font-size: 10px;
 }
 
 .source-status {
     color: #4ade80;
-
     font-size: 9px;
-
     font-weight: 700;
 }
 
@@ -710,11 +693,9 @@ div.stButton > button[kind="primary"] {
     background: #0d1421;
 
     border: 1px solid #172236;
-
     border-radius: 12px;
 
     padding: 18px;
-
     margin-bottom: 20px;
 }
 
@@ -724,48 +705,83 @@ div.stButton > button[kind="primary"] {
    ========================================================= */
 
 .stTextInput input,
-.stSelectbox div[data-baseweb="select"] > div {
+.stSelectbox div[data-baseweb="select"] > div,
+.stDateInput input,
+.stNumberInput input,
+.stTextArea textarea {
     background-color: #0b111d !important;
-
     color: #e2e8f0 !important;
-
     border-color: #1e293b !important;
 }
 
 .stTextInput label,
 .stSelectbox label,
 .stMultiSelect label,
-.stDateInput label {
+.stDateInput label,
+.stFileUploader label,
+.stNumberInput label,
+.stTextArea label {
     color: #94a3b8 !important;
-
     font-size: 11px !important;
 }
 
-
-/* =========================================================
-   DATAFRAME
-   ========================================================= */
-
-[data-testid="stDataFrame"] {
-    border: 1px solid #172236;
-
-    border-radius: 10px;
-
-    overflow: hidden;
+div[data-baseweb="popover"],
+div[data-baseweb="menu"] {
+    background: #0d1421 !important;
+    color: #e2e8f0 !important;
 }
 
 
 /* =========================================================
-   DOWNLOAD BUTTON
+   DATAFRAME AND STORED LOGS
+   ========================================================= */
+
+[data-testid="stDataFrame"] {
+    width: 100% !important;
+    min-height: 250px;
+
+    border: 1px solid #26354c !important;
+    border-radius: 10px;
+
+    margin-top: 10px !important;
+}
+
+.logs-section-title {
+    color: #f8fafc !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+
+    margin-top: 20px !important;
+    margin-bottom: 10px !important;
+}
+
+
+/* =========================================================
+   PLOTLY CHARTS
+   ========================================================= */
+
+/* Keep charts within their columns without clipping the page */
+[data-testid="stPlotlyChart"] {
+    width: 100%;
+    min-width: 0;
+    margin-bottom: 12px;
+}
+
+/* Make chart containers responsive */
+[data-testid="stPlotlyChart"] > div {
+    max-width: 100%;
+}
+
+
+/* =========================================================
+   BUTTONS
    ========================================================= */
 
 .stDownloadButton > button {
     background: #0d1625;
-
     color: #38bdf8;
 
     border: 1px solid rgba(56, 189, 248, 0.25);
-
     border-radius: 8px;
 
     font-weight: 600;
@@ -773,28 +789,19 @@ div.stButton > button[kind="primary"] {
 
 .stDownloadButton > button:hover {
     background: #132238;
-
     color: #7dd3fc;
-
     border-color: #38bdf8;
 }
 
-
-/* =========================================================
-   PRIMARY BUTTON
-   ========================================================= */
-
-.stButton > button[kind="primary"] {
+/* Primary buttons outside the sidebar */
+.stMain .stButton > button[kind="primary"] {
     background: #0e7490;
-
     color: white;
-
     border: 1px solid #0891b2;
 }
 
-.stButton > button[kind="primary"]:hover {
+.stMain .stButton > button[kind="primary"]:hover {
     background: #155e75;
-
     border-color: #22d3ee;
 }
 
@@ -807,7 +814,6 @@ div.stButton > button[kind="primary"] {
     background: #0d1421;
 
     border: 1px solid #172236;
-
     padding: 18px;
 
     border-radius: 12px;
@@ -837,30 +843,29 @@ div[data-testid="stAlert"] {
 
 .footer {
     margin-top: 30px;
-
     padding-top: 15px;
 
     border-top: 1px solid #172033;
 
     display: flex;
-
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
 
-    color: #334155;
-
+    color: #475569;
     font-size: 9px;
 }
 
 
 /* =========================================================
-   RESPONSIVE
+   RESPONSIVE LAYOUT
    ========================================================= */
 
 @media (max-width: 900px) {
-
     .block-container {
-        padding-left: 1rem;
-        padding-right: 1rem;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+        padding-top: 2rem !important;
     }
 
     .page-heading {
@@ -871,36 +876,40 @@ div[data-testid="stAlert"] {
         font-size: 25px;
     }
 
-}
-/* Dashboard top spacing fix */
-.block-container { padding-top: 4rem !important; padding-bottom: 3rem !important; }
-.topbar { position: relative !important; z-index: 2 !important; overflow: visible !important; }
-.page-heading { line-height: 1.25 !important; margin-top: 0 !important; }
-section[data-testid="stMain"], section[data-testid="stMain"] > div, .stApp { overflow: visible !important; }
+    .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
 
-/* =========================================================
-   STORED SECURITY LOGS - DATAFRAME VISIBILITY
-   ========================================================= */
+    .topbar-right {
+        flex-wrap: wrap;
+    }
 
-[data-testid="stDataFrame"] {
-    width: 100% !important;
-    min-height: 300px !important;
-    border: 1px solid #26354c !important;
-    border-radius: 10px !important;
-    overflow: auto !important;
-    margin-top: 10px !important;
+    .panel {
+        padding: 15px;
+    }
 }
 
-/* Make dataframe area clearly visible */
-div[data-testid="stDataFrame"] > div {
-    background: #0d1421 !important;
-}
+@media (max-width: 600px) {
+    .block-container {
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+    }
 
-/* Stored logs heading */
-.logs-section-title {
-    color: #f8fafc !important;
-    font-size: 16px !important;
-    font-weight: 700 !important;
-    margin-top: 20px !important;
-    margin-bottom: 10px !important;
+    .page-heading {
+        font-size: 19px;
+    }
+
+    .brand-name {
+        font-size: 21px;
+    }
+
+    .score-circle {
+        width: 125px;
+        height: 125px;
+    }
+
+    .ip-row {
+        grid-template-columns: 1.2fr 0.8fr;
+    }
 }

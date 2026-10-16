@@ -219,3 +219,76 @@ def get_critical_alert_count():
     except Error as e:
         print("Error getting critical alert count:", e)
         return 0
+
+
+
+def get_alert_status_counts():
+    connection = get_connection()
+
+    if connection is None:
+        return {}
+
+    cursor = None
+
+    try:
+        cursor = connection.cursor(dictionary=True)
+
+        cursor.execute("""
+            SELECT status, COUNT(*) AS total
+            FROM alerts
+            GROUP BY status
+        """)
+
+        results = cursor.fetchall()
+
+        return {
+            str(row["status"] or "NEW").upper(): row["total"]
+            for row in results
+        }
+
+    except Error as e:
+        print("Error getting alert status counts:", e)
+        return {}
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if connection is not None and connection.is_connected():
+            connection.close()
+
+
+
+def update_alert_status(alert_id, status, notes):
+    connection = get_connection()
+
+    if connection is None:
+        return False
+
+    cursor = None
+
+    try:
+        cursor = connection.cursor()
+
+        query = """
+            UPDATE alerts
+            SET status = %s,
+                investigation_notes = %s
+            WHERE id = %s
+        """
+
+        cursor.execute(query, (status, notes, alert_id))
+        connection.commit()
+
+        return cursor.rowcount > 0
+
+    except Error as e:
+        print("Error updating alert:", e)
+        return False
+
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if connection is not None and connection.is_connected():
+            connection.close()
