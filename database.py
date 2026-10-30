@@ -1,15 +1,37 @@
+import os
 import mysql.connector
 from mysql.connector import Error
 
 
+# ==========================================
+# DATABASE CONNECTION
+# ==========================================
+
 def get_connection():
     try:
-        connection = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="root",
-            database="siem_db"
-        )
+        db_host = os.getenv("DB_HOST", "localhost")
+        db_user = os.getenv("DB_USER", "root")
+        db_password = os.getenv("DB_PASSWORD", "root")
+        db_name = os.getenv("DB_NAME", "siem_db")
+        db_port = int(os.getenv("DB_PORT", 3306))
+
+        connection_config = {
+            "host": db_host,
+            "user": db_user,
+            "password": db_password,
+            "database": db_name,
+            "port": db_port,
+            "connection_timeout": 10
+        }
+
+        # Optional SSL certificate for cloud MySQL
+        ssl_ca = os.getenv("DB_SSL_CA")
+
+        if ssl_ca:
+            connection_config["ssl_ca"] = ssl_ca
+            connection_config["ssl_verify_cert"] = True
+
+        connection = mysql.connector.connect(**connection_config)
 
         return connection
 
@@ -17,12 +39,23 @@ def get_connection():
         print("Database connection error:", e)
         return None
 
+    except ValueError as e:
+        print("Invalid database configuration:", e)
+        return None
+
+
+# ==========================================
+# INSERT LOG
+# ==========================================
 
 def insert_log(timestamp, username, ip_address, status, event_type):
+
     connection = get_connection()
 
     if connection is None:
         return False
+
+    cursor = None
 
     try:
         cursor = connection.cursor()
@@ -40,20 +73,26 @@ def insert_log(timestamp, username, ip_address, status, event_type):
 
         connection.commit()
 
-        cursor.close()
-        connection.close()
-
         return True
 
     except Error as e:
         print("Error inserting log:", e)
-
-        if connection:
-            connection.close()
-
         return False
 
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if connection.is_connected():
+            connection.close()
+
+
+# ==========================================
+# GET LOGS
+# ==========================================
+
 def get_logs():
+
     connection = get_connection()
 
     if connection is None:
@@ -91,14 +130,22 @@ def get_logs():
         if cursor is not None:
             cursor.close()
 
-        if connection is not None and connection.is_connected():
+        if connection.is_connected():
             connection.close()
 
+
+# ==========================================
+# GET ALERTS
+# ==========================================
+
 def get_alerts():
+
     connection = get_connection()
 
     if connection is None:
         return []
+
+    cursor = None
 
     try:
         cursor = connection.cursor(dictionary=True)
@@ -111,21 +158,32 @@ def get_alerts():
 
         alerts = cursor.fetchall()
 
-        cursor.close()
-        connection.close()
-
         return alerts
 
     except Error as e:
         print("Error retrieving alerts:", e)
         return []
 
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if connection.is_connected():
+            connection.close()
+
+
+# ==========================================
+# GET LOG COUNT
+# ==========================================
 
 def get_log_count():
+
     connection = get_connection()
 
     if connection is None:
         return 0
+
+    cursor = None
 
     try:
         cursor = connection.cursor()
@@ -134,21 +192,32 @@ def get_log_count():
 
         count = cursor.fetchone()[0]
 
-        cursor.close()
-        connection.close()
-
         return count
 
     except Error as e:
         print("Error getting log count:", e)
         return 0
 
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if connection.is_connected():
+            connection.close()
+
+
+# ==========================================
+# GET ALERT COUNT
+# ==========================================
 
 def get_alert_count():
+
     connection = get_connection()
 
     if connection is None:
         return 0
+
+    cursor = None
 
     try:
         cursor = connection.cursor()
@@ -157,21 +226,32 @@ def get_alert_count():
 
         count = cursor.fetchone()[0]
 
-        cursor.close()
-        connection.close()
-
         return count
 
     except Error as e:
         print("Error getting alert count:", e)
         return 0
 
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if connection.is_connected():
+            connection.close()
+
+
+# ==========================================
+# GET HIGH ALERT COUNT
+# ==========================================
 
 def get_high_alert_count():
+
     connection = get_connection()
 
     if connection is None:
         return 0
+
+    cursor = None
 
     try:
         cursor = connection.cursor()
@@ -184,21 +264,32 @@ def get_high_alert_count():
 
         count = cursor.fetchone()[0]
 
-        cursor.close()
-        connection.close()
-
         return count
 
     except Error as e:
         print("Error getting high alert count:", e)
         return 0
 
+    finally:
+        if cursor is not None:
+            cursor.close()
+
+        if connection.is_connected():
+            connection.close()
+
+
+# ==========================================
+# GET CRITICAL ALERT COUNT
+# ==========================================
 
 def get_critical_alert_count():
+
     connection = get_connection()
 
     if connection is None:
         return 0
+
+    cursor = None
 
     try:
         cursor = connection.cursor()
@@ -211,18 +302,26 @@ def get_critical_alert_count():
 
         count = cursor.fetchone()[0]
 
-        cursor.close()
-        connection.close()
-
         return count
 
     except Error as e:
         print("Error getting critical alert count:", e)
         return 0
 
+    finally:
+        if cursor is not None:
+            cursor.close()
 
+        if connection.is_connected():
+            connection.close()
+
+
+# ==========================================
+# GET ALERT STATUS COUNTS
+# ==========================================
 
 def get_alert_status_counts():
+
     connection = get_connection()
 
     if connection is None:
@@ -254,12 +353,16 @@ def get_alert_status_counts():
         if cursor is not None:
             cursor.close()
 
-        if connection is not None and connection.is_connected():
+        if connection.is_connected():
             connection.close()
 
 
+# ==========================================
+# UPDATE ALERT STATUS
+# ==========================================
 
 def update_alert_status(alert_id, status, notes):
+
     connection = get_connection()
 
     if connection is None:
@@ -278,6 +381,7 @@ def update_alert_status(alert_id, status, notes):
         """
 
         cursor.execute(query, (status, notes, alert_id))
+
         connection.commit()
 
         return cursor.rowcount > 0
@@ -290,5 +394,5 @@ def update_alert_status(alert_id, status, notes):
         if cursor is not None:
             cursor.close()
 
-        if connection is not None and connection.is_connected():
+        if connection.is_connected():
             connection.close()
